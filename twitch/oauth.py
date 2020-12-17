@@ -2,6 +2,7 @@ import webbrowser
 import requests
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 
+
 # Gets an OAuth token, using an implementation of implicit code OAuth
 def get_token(client_id: str) -> str:
     class CustomHandler(SimpleHTTPRequestHandler):
@@ -26,9 +27,11 @@ def get_token(client_id: str) -> str:
         while httpd.token == None: httpd.handle_request()
         return httpd.token
 
+
 # Checks if an access token is valid
 def check_token(token: str) -> bool:
     return requests.get('https://id.twitch.tv/oauth2/validate', headers={'Authorization':f'OAuth {token}'}).status_code == 200
+
 
 # Revokes an access token
 def revoke_token(client_id: str, token: str) -> bool: 
